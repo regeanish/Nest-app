@@ -1,0 +1,22 @@
+ 
+ -H for headers
+ -d for data
+ 
+ 
+ get request:-
+ curl http://localhost:3000/tasks;
+
+
+post request:-
+https://stackoverflow.com/questions/7172784/how-do-i-post-json-data-with-curl
+
+curl -H "Content-Type: application/json" -d '{"title":"hello", "description":"Hello from anish"}' http://localhost:3000/tasks
+
+
+DELETE REQUEST:-
+ curl --header "Content-Type: application/json"   --request DELETE  http://localhost:3000/tasks/361965c8-3f1d-4614-a5a5-78d710da43b3
+
+
+PATCH REQUEST:-
+
+curl --H "Content-Type: application/json"   --request PATCH -d '{"status":"IN_PROGRESS"}'  http://localhost:3000/tasks/2/status
