@@ -10,8 +10,6 @@ export class TaskStatusValidationPipe implements PipeTransform {
     
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     transform(value:any){
-        console.log(`value`);
-        console.log(value);
         value = value.toUpperCase();
         if(!this.isStatusValid(value)){
             throw new BadRequestException(`"${value}" is an invalid status`);

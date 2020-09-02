@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, Logger } from '@nestjs/common';
 import { UserRepository } from './user.respository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
@@ -7,6 +7,8 @@ import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
+    private _logger = new Logger();
+
     constructor(
         @InjectRepository(UserRepository)
         private _userRepository:UserRepository,
@@ -18,13 +20,11 @@ export class AuthService {
     }
 
     public async signIn(authCredentialsDto:AuthCredentialsDto):Promise<{accessToken:string}> {
-        // {"username":"ariel", "password":"Aaaaa@123!#"}
         const username = await this._userRepository.validateUserPassword(authCredentialsDto);
-        // console.log(username);
         if(!username) throw new UnauthorizedException('Invalid credentials'); // dont tell the hackers that username or password incorrect
-        
         const payload:JwtPayload = {username};
         const accessToken = await this.jwtService.sign(payload);
+        this._logger.debug(`Generated JWT Token with payload ${JSON.stringify(payload)}`);
         return {accessToken};
 
     }
