@@ -18,7 +18,7 @@ export class TaskRepository extends Repository<Task>{
         // https://www.google.com/search?q=querybuilder+typeorm&oq=querybuilder+typeorm&aqs=chrome.0.69i59j0l7.5826j0j7&sourceid=chrome&ie=UTF-8
         const query = this.createQueryBuilder('task'); // refering to task entity
         
-        query.where('task.userIdasdasdas = :userId', {userId:user.id});
+        query.where('task.userId = :userId', {userId:user.id});
         
         // FILTERING 
         if(status){
